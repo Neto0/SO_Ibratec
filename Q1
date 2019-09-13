@@ -1,0 +1,87 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+struct complex
+{
+	float real;
+	float imag;
+	
+};
+
+typedef struct complex Complex;
+
+Complex soma (Complex c1, Complex c2){ //soma
+	Complex c3;
+	c3.real = c1.real + c2.real;
+	c3.imag = c1.imag + c2.imag;
+	return c3;
+}
+
+Complex sub (Complex c1, Complex c2){ // subtração
+	Complex c3;
+	c3.real = c1.real - c2.real;
+	c3.imag = c1.imag - c2.imag;
+	return c3;
+}
+
+Complex mult (Complex c1, Complex c2){ // multiplicação
+	Complex c3;
+	c3.real =  (c1.real*c2.imag-c1.imag*c2.imag);
+	c3.imag = (c1.imag*c2.real+c1.real*c2.imag);
+	return c3;
+}
+
+Complex multescalar (Complex c1, float escalar){ // multiplicação por escalar
+	Complex c3;
+	c3.real =  escalar * c1.imag;
+	c3.imag = escalar * c1.imag;
+	return c3;
+}
+
+float norma (Complex c1){ // norma
+	float c3;
+	c3=sqrt(c1.real*c1.real+c1.imag*c1.imag);
+	return c3;
+}
+
+Complex conjugado (Complex c1){ 
+	Complex c3;
+	c1.real = c1.real;
+	c1.imag = -c1.imag;
+	return c3;
+}
+
+Complex divisao (Complex c1, Complex c2){ 
+	float denom = norma(c2)*norma(c2);
+	Complex c3;
+	c3.real=(c1.real*c2.real+c1.imag*c2.imag) / denom;
+	c3.imag=(c2.real*c1.imag+c1.real*c2.imag) / denom;
+	return c3;
+}
+
+double angulo (Complex c1){
+	double angle=etan(c1.imag/c1.real);
+	return angle;
+}
+
+
+int main(int argc, char *argv[]) {
+float escalar;
+Complex c1 = {4,5};
+Complex c2 = {3,4};
+Complex c3 = soma(c1,c2);
+Complex c4 = sub(c1,c2);
+Complex c5 = mult(c1,c2);
+Complex c6 = multescalar(c1,escalar);
+
+printf("C1: real=%f imag=%f\n", c1.real,c1.imag);
+printf("C2: real=%f imag=%f\n", c2.real,c2.imag);
+printf("C3 (Soma): real=%f imag=%f\n", c3.real,c3.imag);//resultado da soma
+printf("C4 (Subtracao): real=%f imag=%f\n", c3.real,c3.imag);//resultado da subtração
+printf("C5 (Multiplicacao): real=%f imag=%f\n", c3.real,c3.imag);//resultado da multiplicação
+printf("C6 (Multiplicacao por escalar): real=%f imag=%f\n", c3.real,c3.imag);//resultado da multiplicação por escalar
+
+
+	return 0;
+}
